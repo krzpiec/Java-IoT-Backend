@@ -1,0 +1,22 @@
+version: '3.9'
+
+services:
+
+  db:
+    image: postgres
+    restart: always
+    environment:
+      POSTGRES_USER: user
+      POSTGRES_PASSWORD: example
+      POSTGRES_DB: localDB
+    ports:
+      - '5432:5432'
+
+
+  mosquitto:
+    image: eclipse-mosquitto
+    ports:
+      - '1883:1883'
+      - '9001:9001'
+    restart: unless-stopped
+
