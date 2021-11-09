@@ -13,10 +13,13 @@ services:
       - '5432:5432'
 
 
-  mosquitto:
+  mqtt:
     image: eclipse-mosquitto
     ports:
       - '1883:1883'
       - '9001:9001'
-    restart: unless-stopped
-
+    restart: always
+    environment:
+      PUID: 1883
+    volumes:
+    - C:\Users\stobiasiewicz\Documents\Prywatne\Java-IoT-Backend\mosquitto\config\mosquitto.conf:/mosquitto/config/mosquitto.conf
