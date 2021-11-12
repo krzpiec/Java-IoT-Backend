@@ -10,7 +10,8 @@ import javax.persistence.*;
 @Table(name = "channel")
 public class Channel {
 
-    @ManyToOne(targetEntity = Device.class)
+    @ManyToOne
+    @JoinColumn(name = "device_device_id")
     private Device device;
 
     @Id

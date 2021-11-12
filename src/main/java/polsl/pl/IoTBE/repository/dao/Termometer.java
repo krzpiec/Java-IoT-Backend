@@ -11,12 +11,14 @@ import java.util.List;
 @Table(name = "termometer")
 public class Termometer {
 
-
-    @OneToOne(targetEntity = Localization.class)
+    @OneToOne(orphanRemoval = true)
+    @JoinColumn(name = "localization_localization_id")
     private Localization localization;
 
-    @OneToMany(targetEntity = Termometer.class)
+    @OneToMany(orphanRemoval = true)
+    @JoinColumn(name = "termometer_termometer_id")
     private List<TemperatureHistory> temperatureHistories;
+
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private long termometerId;
@@ -26,6 +28,5 @@ public class Termometer {
 
     @Column
     private String unit;
-
 
 }
