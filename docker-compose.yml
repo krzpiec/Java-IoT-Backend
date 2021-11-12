@@ -22,4 +22,4 @@ services:
     environment:
       PUID: 1883
     volumes:
-    - C:\Users\stobiasiewicz\Documents\Prywatne\Java-IoT-Backend\mosquitto\config\mosquitto.conf:/mosquitto/config/mosquitto.conf
+    - D:\Inzynierka\IoTBE\mosquitto\config\mosquitto.conf:/mosquitto/config/mosquitto.conf
