@@ -11,12 +11,11 @@ import javax.persistence.*;
 @Table(name = "localization")
 public class Localization {
 
-      @OneToOne(mappedBy = "localization")
+    @OneToOne(targetEntity = Termometer.class)
      private Termometer termometer;
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(name = "id")
     private long localizationId;
 
     @Column

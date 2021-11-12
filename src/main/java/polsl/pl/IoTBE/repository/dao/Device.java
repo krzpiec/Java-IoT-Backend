@@ -11,12 +11,11 @@ import java.util.List;
 @Table(name = "device")
 public class Device {
 
-    @OneToMany (mappedBy="device")
+    @OneToMany (targetEntity = Channel.class)
     private List<Channel> channels;
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(name = "id")
     private long deviceId;
 
     @Column

@@ -11,13 +11,11 @@ import java.sql.Timestamp;
 @Table(name = "temperature_history")
 public class TemperatureHistory {
 
-    @ManyToOne
-    @JoinColumn(name="termometer_id", nullable=false)
+    @ManyToOne(targetEntity = Termometer.class)
     private Termometer termometer;
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(name = "id")
     private long termometerHistoryId;
     @Column
     private int value;

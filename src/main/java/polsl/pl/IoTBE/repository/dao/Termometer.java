@@ -12,15 +12,13 @@ import java.util.List;
 public class Termometer {
 
 
-    @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "localization_id", referencedColumnName = "id")
+    @OneToOne(targetEntity = Localization.class)
     private Localization localization;
 
-    @OneToMany(mappedBy="termometer")
+    @OneToMany(targetEntity = Termometer.class)
     private List<TemperatureHistory> temperatureHistories;
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(name = "id")
     private long termometerId;
 
     @Column

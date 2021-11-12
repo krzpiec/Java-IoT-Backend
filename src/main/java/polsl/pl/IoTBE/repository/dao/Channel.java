@@ -10,13 +10,11 @@ import javax.persistence.*;
 @Table(name = "channel")
 public class Channel {
 
-    @ManyToOne
-    @JoinColumn(name="device_id", nullable=false)
+    @ManyToOne(targetEntity = Device.class)
     private Device device;
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(name = "id")
     private long channelId;
 
     @Column
