@@ -16,6 +16,12 @@ public class Localization {
     private long localizationId;
 
     @Column
-    private String Description;
+    private String description;
+
+    @Column
+    private double latitude;
+
+    @Column
+    private  double longitude;
 
 }

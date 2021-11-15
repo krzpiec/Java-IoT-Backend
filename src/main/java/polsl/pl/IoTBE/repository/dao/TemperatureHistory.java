@@ -1,6 +1,7 @@
 package polsl.pl.IoTBE.repository.dao;
 
 import lombok.Data;
+import org.springframework.lang.Nullable;
 
 import javax.persistence.*;
 import java.sql.Timestamp;
@@ -13,6 +14,7 @@ public class TemperatureHistory {
 
     @ManyToOne
     @JoinColumn(name = "termometer_termometer_id")
+    @Nullable
     private Termometer termometer;
 
     @Id

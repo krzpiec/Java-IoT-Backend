@@ -11,7 +11,7 @@ import java.util.List;
 @Table(name = "device")
 public class Device {
 
-    @OneToMany(orphanRemoval = true)
+    @OneToMany
     @JoinColumn(name = "device_device_id")
     private List<Channel> channels;
 

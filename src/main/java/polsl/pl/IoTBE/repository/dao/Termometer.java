@@ -1,6 +1,7 @@
 package polsl.pl.IoTBE.repository.dao;
 
 import lombok.Data;
+import org.springframework.lang.Nullable;
 
 import javax.persistence.*;
 import java.util.List;
