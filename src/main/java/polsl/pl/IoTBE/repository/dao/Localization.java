@@ -11,17 +11,17 @@ import javax.persistence.*;
 @Table(name = "localization")
 public class Localization {
 
-      @OneToOne(mappedBy = "localization")
-     private Termometer termometer;
-
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(name = "id")
     private long localizationId;
 
     @Column
-    private String Description;
+    private String description;
 
+    @Column
+    private double latitude;
 
+    @Column
+    private  double longitude;
 
 }

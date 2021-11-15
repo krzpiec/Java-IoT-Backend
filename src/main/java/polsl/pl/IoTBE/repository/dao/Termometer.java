@@ -1,6 +1,7 @@
 package polsl.pl.IoTBE.repository.dao;
 
 import lombok.Data;
+import org.springframework.lang.Nullable;
 
 import javax.persistence.*;
 import java.util.List;
@@ -11,16 +12,16 @@ import java.util.List;
 @Table(name = "termometer")
 public class Termometer {
 
-
-    @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "localization_id", referencedColumnName = "id")
+    @OneToOne(orphanRemoval = true)
+    @JoinColumn(name = "localization_localization_id")
     private Localization localization;
 
-    @OneToMany(mappedBy="termometer")
+    @OneToMany(orphanRemoval = true)
+    @JoinColumn(name = "termometer_termometer_id")
     private List<TemperatureHistory> temperatureHistories;
+
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(name = "id")
     private long termometerId;
 
     @Column
@@ -28,6 +29,5 @@ public class Termometer {
 
     @Column
     private String unit;
-
 
 }
