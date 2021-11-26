@@ -20,14 +20,23 @@ public class Termometer {
     @JoinColumn(name = "termometer_termometer_id")
     private List<TemperatureHistory> temperatureHistories;
 
+
+    @OneToOne(orphanRemoval = true)
+    @JoinColumn(name = "channel_channel_id")
+    private Channel channel;
+
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private long termometerId;
 
-    @Column
-    private int value;
 
     @Column
     private String unit;
+
+
+    @Column
+    private String description;
+
+
 
 }

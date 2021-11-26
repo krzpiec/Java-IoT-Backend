@@ -41,7 +41,6 @@ public class Controller {
         Termometer termometer = new Termometer();
         termometer.setLocalization(localization);
         termometer.setUnit("twojstary*N/69stopniCelsjusza");
-        termometer.setValue(1);
         termometer.setTemperatureHistories(temperatureHistories);
         termometerRepository.save(termometer);
 
