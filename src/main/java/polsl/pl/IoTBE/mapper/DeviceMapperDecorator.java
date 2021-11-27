@@ -5,6 +5,8 @@ import polsl.pl.IoTBE.repository.dao.Device;
 import polsl.pl.IoTBE.rest.dto.DeviceDescriptionDto;
 import polsl.pl.IoTBE.rest.dto.DeviceDto;
 
+import java.sql.Timestamp;
+
 public abstract class DeviceMapperDecorator implements DeviceMapper
 {
 
@@ -15,8 +17,7 @@ public abstract class DeviceMapperDecorator implements DeviceMapper
     private ChannelMapper channelMapper;
 
     @Override
-    public DeviceDto deviceToDeviceDto(Device device)
-    {
+    public DeviceDto deviceToDeviceDto(Device device) {
        DeviceDto deviceDto = delegate.deviceToDeviceDto(device);
        DeviceDescriptionDto deviceDescriptionDto = delegate.deviceToDeviceDescriptionDto(device);
        deviceDto.setDeviceDescription(deviceDescriptionDto);
@@ -32,23 +33,32 @@ public abstract class DeviceMapperDecorator implements DeviceMapper
     }
 
     @Override
-    public Device deviceDtoToDevice(DeviceDto deviceDto)
-    {
+    public Device deviceDtoToDevice(DeviceDto deviceDto) {
         Device device = delegate.deviceDtoToDevice(deviceDto);
         device.setChannels(null);
         return device;
     }
 
     @Override
-    public DeviceDto deviceDescriptionDtoToDeviceDto(DeviceDescriptionDto deviceDescriptionDto)
-    {
+    public Device deviceDescriptionDtoToDevice(DeviceDescriptionDto deviceDescriptionDto){
+        Device device = new Device();
+
+        device.setMacAdr(deviceDescriptionDto.getMacAdr());
+        device.setDescription(deviceDescriptionDto.getDescription());
+        device.setFriendlyName(deviceDescriptionDto.getFriendlyName());
+        device.setCreateTime(new Timestamp(System.currentTimeMillis()));
+        device.setChannels(null);
+        return device;
+    }
+
+    @Override
+    public DeviceDto deviceDescriptionDtoToDeviceDto(DeviceDescriptionDto deviceDescriptionDto) {
         DeviceDto deviceDto = delegate.deviceDescriptionDtoToDeviceDto(deviceDescriptionDto);
         deviceDto.setChannelDtoList(null);
         return deviceDto;
     }
 
-    private DeviceDto addChannelList(DeviceDto deviceDto, Device device)
-    {
+    private DeviceDto addChannelList(DeviceDto deviceDto, Device device) {
         deviceDto.setChannelDtoList(null);
         return deviceDto;
     }

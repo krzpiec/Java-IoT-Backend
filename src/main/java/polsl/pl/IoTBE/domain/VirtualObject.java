@@ -7,9 +7,9 @@ import polsl.pl.IoTBE.repository.dao.Channel;
 import polsl.pl.IoTBE.repository.dao.Localization;
 
 @Data
-public abstract class VirtualDevice {
+public abstract class VirtualObject {
 
-    public VirtualDevice(String mac, long channelNumber, VirtualChannel virtualChannel, Localization localization) {
+    public VirtualObject(String mac, long channelNumber, VirtualChannel virtualChannel, Localization localization) {
 
         this.mac = mac;
         this.channelNumber = channelNumber;

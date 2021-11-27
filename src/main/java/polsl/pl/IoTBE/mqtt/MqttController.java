@@ -14,11 +14,8 @@ public class MqttController {
 
     @GetMapping("/sendMessage")
     public ResponseEntity<?> publish(String topic, String payload) {
-        String mqttMessage = "{\"topic\":\"testTopic\" , \"message\" : {\"data\":\"hello\"}}"  ;
 
         try {
-            JsonObject convertObject = new Gson().fromJson(mqttMessage, JsonObject.class);
-            //convertObject.get("message").toString(), convertObject.get("topic").toString()
             mqtGateway.senToMqtt(payload, topic);
             return ResponseEntity.ok("Success");
         } catch (Exception ex) {

@@ -1,10 +1,7 @@
 package polsl.pl.IoTBE.message.channel;
 
-import lombok.AllArgsConstructor;
-import lombok.Getter;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
-import polsl.pl.IoTBE.domain.VirtualDevice;
+import polsl.pl.IoTBE.domain.VirtualObject;
 import polsl.pl.IoTBE.mqtt.MqttController;
 
 
@@ -27,16 +24,16 @@ public class TempSensorChannel extends VirtualChannel<TempSensor>
     }
 
 
-    public void sendGetSignalToMqtt(VirtualDevice virtualDevice)
+    public void sendGetSignalToMqtt(VirtualObject virtualObject)
     {
-        String topic = virtualDevice.getTopicPrefix() + "get";
+        String topic = virtualObject.getTopicPrefix() + "get";
         String payload = "1";
         mqttController.publish(topic, payload);
 
     }
-    public void sendSetSignalToMqtt(VirtualDevice virtualDevice)
+    public void sendSetSignalToMqtt(VirtualObject virtualObject)
     {
-        String topic = virtualDevice.getTopicPrefix() + "set";
+        String topic = virtualObject.getTopicPrefix() + "set";
         String payload = "1";
         mqttController.publish(topic, payload);
 

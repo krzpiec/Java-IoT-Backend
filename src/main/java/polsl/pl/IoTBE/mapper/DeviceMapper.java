@@ -13,6 +13,8 @@ public interface DeviceMapper {
 
     Device deviceDtoToDevice(DeviceDto deviceDto);
 
+    Device deviceDescriptionDtoToDevice(DeviceDescriptionDto deviceDescriptionDto);
+
     DeviceDto deviceDescriptionDtoToDeviceDto(DeviceDescriptionDto deviceDescriptionDto);
 
     DeviceDescriptionDto deviceToDeviceDescriptionDto(Device device);

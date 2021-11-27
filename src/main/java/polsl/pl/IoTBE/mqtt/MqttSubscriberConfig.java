@@ -19,6 +19,8 @@ import polsl.pl.IoTBE.message.handler.MqttMessageHandler;
 @Configuration
 public class MqttSubscriberConfig {
 
+    MqttPahoMessageDrivenChannelAdapter adapter;
+
     @Autowired
     MqttMessageHandler mqttMessageHandler;
 
@@ -28,7 +30,7 @@ public class MqttSubscriberConfig {
     }
 
     @Bean
-    public MessageProducer inbound() {
+    public MqttPahoMessageDrivenChannelAdapter inbound() {
         MqttPahoMessageDrivenChannelAdapter adapter =
                 new MqttPahoMessageDrivenChannelAdapter("tcp://localhost:1883", "testClient",
                         "topic1", "00:00:00:00:00::00/55/get");
@@ -37,7 +39,7 @@ public class MqttSubscriberConfig {
         adapter.setConverter(new DefaultPahoMessageConverter());
         adapter.setQos(1);
         adapter.setOutputChannel(mqttInputChannel());
-
+        this.adapter = adapter;
         return adapter;
     }
 
@@ -49,11 +51,12 @@ public class MqttSubscriberConfig {
             @Override
             public void handleMessage(Message<?> message) throws MessagingException {
                 mqttMessageHandler.resolveMessage(message);
-               //System.out.println(message.getHeaders());
+               System.out.println(message.getHeaders());
 //                log.debug("message arrived: {} ",message.getPayload());
             }
 
         };
     }
+
 
 }

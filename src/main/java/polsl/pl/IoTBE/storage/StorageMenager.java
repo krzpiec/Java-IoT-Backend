@@ -4,7 +4,7 @@ package polsl.pl.IoTBE.storage;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import org.springframework.stereotype.Component;
-import polsl.pl.IoTBE.domain.VirtualDevice;
+import polsl.pl.IoTBE.domain.VirtualObject;
 import polsl.pl.IoTBE.message.channel.VirtualChannel;
 import polsl.pl.IoTBE.repository.dao.Channel;
 import polsl.pl.IoTBE.repository.dao.Device;
@@ -16,7 +16,7 @@ import java.util.List;
 @AllArgsConstructor
 public class StorageMenager {
 
-    List<VirtualDevice> virtualDeviceList;
+    List<VirtualObject> virtualObjectList;
     List<Device> deviceList;
     List<Channel> channelList;
     List<VirtualChannel> virtualChannelList;
@@ -52,7 +52,7 @@ public class StorageMenager {
 
 
 
-    public VirtualDevice getVirtualDeviceByMacAndChannelNumber(String mac, long channelNumber)
+    public VirtualObject getVirtualDeviceByMacAndChannelNumber(String mac, long channelNumber)
     {
         //error thrown
 //        Device device = this.getDeviceList().stream()
@@ -66,12 +66,12 @@ public class StorageMenager {
 //                .findAny()
 //                .orElse(null);
 
-        VirtualDevice virtualDevice = this.getVirtualDeviceList().stream()
+        VirtualObject virtualObject = this.getVirtualObjectList().stream()
                 .filter(virtualDevice1 -> virtualDevice1.getMac() == mac && virtualDevice1.getChannelNumber() == channelNumber)
                 .findAny()
                 .orElse(null);
 
-        return virtualDevice;
+        return virtualObject;
 
     }
 

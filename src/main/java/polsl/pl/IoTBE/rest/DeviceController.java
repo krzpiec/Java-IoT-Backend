@@ -26,18 +26,9 @@ public class DeviceController {
     //@Body @Valid
     public ResponseEntity<DeviceDto> add(@RequestBody DeviceDescriptionDto deviceDescriptionDto) {
 
-        Device device = deviceService.addDevice(deviceDescriptionDto);
 
+        Device device = deviceService.addDevice(deviceMapper.deviceDescriptionDtoToDevice(deviceDescriptionDto));
 
-//        DeviceDto deviceDto = new DeviceDto();
-//
-//        DeviceDescriptionDto descriptionDto = new DeviceDescriptionDto();
-//        descriptionDto.setDescription(device.getDescription());
-//        descriptionDto.setFriendlyName(device.getFriendlyName());
-//        descriptionDto.setMacAdr(device.getMacAdr());
-//
-//        deviceDto.setDeviceDescription(descriptionDto);
-//        deviceDto.setCreateTime(device.getCreateTime());
 
         return ResponseEntity.ok(deviceMapper.deviceToDeviceDto(device));
     }

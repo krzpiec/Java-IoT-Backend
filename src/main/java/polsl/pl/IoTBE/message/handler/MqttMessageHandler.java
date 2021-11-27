@@ -3,7 +3,7 @@ package polsl.pl.IoTBE.message.handler;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.messaging.Message;
 import org.springframework.stereotype.Component;
-import polsl.pl.IoTBE.domain.VirtualDevice;
+import polsl.pl.IoTBE.domain.VirtualObject;
 import polsl.pl.IoTBE.message.channel.VirtualChannel;
 import polsl.pl.IoTBE.storage.StorageMenager;
 
@@ -24,11 +24,11 @@ public class MqttMessageHandler {
         long channelNumber = Long.parseLong(topicSegments[1]);
 
         String type = storageMenager.getTypeByMacAndChannelNumber(MAC, channelNumber);
-        VirtualDevice virtualDevice = storageMenager.getVirtualDeviceByMacAndChannelNumber(MAC, channelNumber);
+        VirtualObject virtualObject = storageMenager.getVirtualDeviceByMacAndChannelNumber(MAC, channelNumber);
         VirtualChannel virtualChannel = storageMenager.getVirtualChannelByType(type);
 
 
-        virtualChannel.executeMessage(payLoad, virtualDevice);
+        virtualChannel.executeMessage(payLoad, virtualObject);
 
     }
 
