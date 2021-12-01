@@ -1,5 +1,6 @@
 package polsl.pl.IoTBE.mqtt;
 
+import lombok.SneakyThrows;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
@@ -33,7 +34,7 @@ public class MqttSubscriberConfig {
     public MqttPahoMessageDrivenChannelAdapter inbound() {
         MqttPahoMessageDrivenChannelAdapter adapter =
                 new MqttPahoMessageDrivenChannelAdapter("tcp://localhost:1883", "testClient",
-                        "topic1", "00:00:00:00:00::00/55/get");
+                        "topic1");
 
         adapter.setCompletionTimeout(5000);
         adapter.setConverter(new DefaultPahoMessageConverter());
@@ -48,15 +49,20 @@ public class MqttSubscriberConfig {
     public MessageHandler handler() {
         return new MessageHandler() {
 
+            @SneakyThrows
             @Override
             public void handleMessage(Message<?> message) throws MessagingException {
                 mqttMessageHandler.resolveMessage(message);
-               System.out.println(message.getHeaders());
+              // System.out.println(message.getHeaders());
 //                log.debug("message arrived: {} ",message.getPayload());
             }
 
         };
     }
 
+    public void addTopic(String topic){
+        this.adapter.addTopic(topic);
+        System.out.println(this.adapter.getTopic());
 
+    }
 }

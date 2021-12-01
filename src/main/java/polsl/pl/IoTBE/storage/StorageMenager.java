@@ -5,6 +5,7 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import org.springframework.stereotype.Component;
 import polsl.pl.IoTBE.domain.VirtualObject;
+import polsl.pl.IoTBE.message.channel.TempSensorChannel;
 import polsl.pl.IoTBE.message.channel.VirtualChannel;
 import polsl.pl.IoTBE.repository.dao.Channel;
 import polsl.pl.IoTBE.repository.dao.Device;
@@ -50,8 +51,6 @@ public class StorageMenager {
         return virtualChannel;
     }
 
-
-
     public VirtualObject getVirtualDeviceByMacAndChannelNumber(String mac, long channelNumber)
     {
         //error thrown
@@ -75,4 +74,52 @@ public class StorageMenager {
 
     }
 
+    public boolean isDevicePresent(Device device)
+    {
+        for(Device device1: this.deviceList)
+        {
+            if(device1.getMacAdr().equals(device.getMacAdr()))
+                return true;
+        }
+        return false;
+    }
+
+    public void addChannel (Channel channel)
+    {
+        this.addChannel(channel);
+    }
+    public void addChannelsFromChannelList(List<Channel> channelList)
+    {
+        this.channelList.addAll(channelList);
+    }
+
+    public void addVirtualChannelsFromChannelList(List<Channel> channelList)
+    {
+       for(Channel channel: channelList)
+       {
+           boolean apperance = false;
+           for(VirtualChannel virtualChannel: this.virtualChannelList)
+           {
+                if(virtualChannel.getType().equals(channel.getType()))
+                    apperance = true;
+           }
+           if(!apperance)
+           {
+               switch (channel.getType())
+               {
+                   case "Sensor":
+                   {
+                        VirtualChannel virtualChannel = new TempSensorChannel("Sensor");
+                        this.virtualChannelList.add(virtualChannel);
+                   }
+               }
+
+           }
+
+       }
+    }
+
+    public void addDevice(Device device){
+        this.deviceList.add(device);
+    }
 }

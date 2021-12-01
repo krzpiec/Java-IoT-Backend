@@ -2,6 +2,7 @@ package polsl.pl.IoTBE.rest;
 
 import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.configurationprocessor.json.JSONException;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -23,8 +24,7 @@ public class DeviceController {
 
 
     @PostMapping("/device/add")
-    //@Body @Valid
-    public ResponseEntity<DeviceDto> add(@RequestBody DeviceDescriptionDto deviceDescriptionDto) {
+    public ResponseEntity<DeviceDto> add(@RequestBody DeviceDescriptionDto deviceDescriptionDto) throws JSONException {
 
 
         Device device = deviceService.addDevice(deviceMapper.deviceDescriptionDtoToDevice(deviceDescriptionDto));
