@@ -23,6 +23,7 @@ public class TemperatureHistory {
 
     @Column
     private int value;
+    @Column
     private Timestamp measureTime;
 
 
