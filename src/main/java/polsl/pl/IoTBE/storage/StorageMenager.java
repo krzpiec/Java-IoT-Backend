@@ -122,4 +122,14 @@ public class StorageMenager {
     public void addDevice(Device device){
         this.deviceList.add(device);
     }
+
+    public Device getDeviceByMac(String mac) {
+        for(Device device: this.deviceList)
+        {
+            if(device.getMacAdr().equals(mac))
+                return device;
+        }
+        return null;
+    }
+
 }
