@@ -9,13 +9,14 @@ import polsl.pl.IoTBE.repository.dao.Localization;
 @Data
 public abstract class VirtualObject {
 
-    public VirtualObject(String mac, long channelNumber, VirtualChannel virtualChannel, Localization localization) {
+    public VirtualObject(String mac, long channelNumber, VirtualChannel virtualChannel, Localization localization,String desiredType) {
 
         this.mac = mac;
         this.channelNumber = channelNumber;
         this.topicPrefix = mac + "/" + Long.toString(channelNumber);
         this.virtualChannel = virtualChannel;
         this.localization = localization;
+        this.desiredType = desiredType;
     }
 
     protected String topicPrefix;//format MAC/channel/
@@ -23,4 +24,5 @@ public abstract class VirtualObject {
     protected long channelNumber;
     protected VirtualChannel virtualChannel;
     protected Localization localization;
+    protected String desiredType;
 }

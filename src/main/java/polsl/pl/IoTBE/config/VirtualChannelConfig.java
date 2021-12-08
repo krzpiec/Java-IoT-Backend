@@ -11,7 +11,7 @@ public class VirtualChannelConfig {
     @Bean
     public TempSensorChannel getTempSensorChannel() {
 
-        return new TempSensorChannel("TemperatureSensor");
+        return new TempSensorChannel("Sensor");
     }
 
 

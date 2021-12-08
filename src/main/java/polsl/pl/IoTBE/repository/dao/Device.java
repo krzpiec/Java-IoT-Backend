@@ -1,12 +1,15 @@
 package polsl.pl.IoTBE.repository.dao;
 
 import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
 
 import javax.persistence.*;
 import java.sql.Timestamp;
 import java.util.List;
 
-@Data
+@Getter
+@Setter
 @Entity
 @Table(name = "device")
 public class Device {

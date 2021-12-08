@@ -23,7 +23,6 @@ dependencies {
 	annotationProcessor 'org.projectlombok:lombok:1.18.22'
 
 	implementation 'org.hibernate:hibernate-core'
-	runtimeOnly 'com.h2database:h2'
 	implementation 'org.postgresql:postgresql'
 
 	implementation 'com.cedarsoftware:json-io:4.1.8'

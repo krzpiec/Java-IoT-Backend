@@ -15,5 +15,6 @@ public interface VirtualObjectMapper {
 
     VirtualTermometer virtualSensorInitDtoToVirtualSensor(VirtualSensorInitDto virtualSensorInitDto);
 
+    VirtualSensorDto virtualSensorToVirtualSensorDto(VirtualTermometer virtualTermometer);
 
 }

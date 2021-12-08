@@ -1,5 +1,8 @@
 package polsl.pl.IoTBE.rest.dto;
 
+import lombok.Data;
+
+@Data
 public class VirtualSensorDto {
     String mac;
     String channelNumber;

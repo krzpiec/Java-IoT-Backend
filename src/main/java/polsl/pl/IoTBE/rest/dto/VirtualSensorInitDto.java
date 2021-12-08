@@ -5,7 +5,7 @@ import lombok.Data;
 @Data
 public class VirtualSensorInitDto {
 
-String mac;
+String macAdr;
 String channelNumber;
 String unit;
 String description;

@@ -12,6 +12,7 @@ import javax.xml.stream.Location;
 import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @RestController
 public class Controller {
@@ -29,6 +30,8 @@ public class Controller {
 
     @GetMapping("/toja")
     public ResponseEntity<String> odp(){
+
+
 
         //CREATE DEVICE AND CHANNELS
 

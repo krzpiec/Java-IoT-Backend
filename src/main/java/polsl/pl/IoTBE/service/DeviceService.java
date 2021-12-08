@@ -3,6 +3,8 @@ package polsl.pl.IoTBE.service;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.configurationprocessor.json.JSONException;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import polsl.pl.IoTBE.mqtt.ConfigHandler;
 import polsl.pl.IoTBE.repository.ChannelRepository;
 import polsl.pl.IoTBE.repository.DeviceRepository;
@@ -25,6 +27,12 @@ public class DeviceService {
     ConfigHandler configHandler;
 
 
+//    //testtutaj
+//    @GetMapping("/getDevice")
+//    public void getDevices(){
+//        List<Device> deviceList = deviceRepository.findAll();
+//        System.out.println(deviceList);
+//    }
 
 
     public Device addDevice(Device device) throws JSONException {
@@ -40,8 +48,6 @@ public class DeviceService {
         storageMenager.addDevice(device);
         storageMenager.addChannelsFromChannelList(channelList);
         storageMenager.addVirtualChannelsFromChannelList(channelList);
-
-        System.out.println(storageMenager.getVirtualChannelList());
 
         deviceRepository.save(device);
 
