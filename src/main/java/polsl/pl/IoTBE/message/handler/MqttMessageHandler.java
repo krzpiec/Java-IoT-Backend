@@ -35,7 +35,7 @@ public class MqttMessageHandler {
         long channelNumber = Long.parseLong(topicSegments[1]);
 
         String type = storageMenager.getTypeByMacAndChannelNumber(MAC, channelNumber);
-        VirtualObject virtualObject = storageMenager.getVirtualDeviceByMacAndChannelNumber(MAC, channelNumber);
+        VirtualObject virtualObject = storageMenager.getVirtualObjectByMacAndChannelNumber(MAC, channelNumber);
         VirtualChannel virtualChannel = storageMenager.getVirtualChannelByType(type);
 
 

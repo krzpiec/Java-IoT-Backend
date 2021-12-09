@@ -13,6 +13,7 @@ import polsl.pl.IoTBE.repository.dao.Channel;
 import polsl.pl.IoTBE.repository.dao.Device;
 
 import javax.annotation.PostConstruct;
+import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -43,12 +44,26 @@ public class StorageMenager {
             channelTypes.add(channel.getType());
         });
 
+        this.virtualObjectList = dbloader.initializeVirtualObjectsFromDataBase();
+        this.virtualObjectList.forEach(virtualObject -> {
+            virtualObject.setVirtualChannel(
+                    getVirtualChannelByType(getChannelByMacAndChannelNumber(virtualObject.getMac(), virtualObject.getChannelNumber()).getType())
+                            );
+        });
+        System.out.println("asdas");
+
+
 //        channelTypes.forEach(
 //                type -> {
 //                    if(type.equals("Sensor"))
 //                            this.virtualChannelList.add(createVirtualChannelByType(type));
 //
 //        });
+    }
+
+    public void addVirtualObject(VirtualObject virtualObject)
+    {
+        this.virtualObjectList.add(virtualObject);
     }
 
 
@@ -63,21 +78,26 @@ public class StorageMenager {
         return null;
     }
 
+    public List<Channel> getChannelsByMac(String macAdr){
+        List <Channel> channelList = new ArrayList<>();
+        this.channelList.forEach(channel -> {
+            if(channel.getDevice().getMacAdr().equals(macAdr))
+                channelList.add(channel);
+        });
+        return channelList;
+    }
+
+
     public String getTypeByMacAndChannelNumber(String mac, long channelNumber) {
-        //error thrown if null
-        Device device = this.getDeviceList().stream()
-                .filter(device1 -> mac.equals(device1.getMacAdr()))
-                .findAny()
-                .orElse(null);
 
 
-        //error thrown if null
-        Channel channel = this.channelList.stream()
-                .filter(channel1 -> channelNumber == channel1.getChannelNumber())
-                .findAny()
-                .orElse(null);
+        for(Channel channel: this.channelList){
 
-        return channel.getType();
+            if(channel.getChannelNumber() == channelNumber && channel.getDevice().getMacAdr().equals(mac))
+                return channel.getType();
+        }
+
+        return null;
     }
 
     public VirtualChannel getVirtualChannelByType(String type) {
@@ -88,10 +108,10 @@ public class StorageMenager {
         return virtualChannel;
     }
 
-    public VirtualObject getVirtualDeviceByMacAndChannelNumber(String mac, long channelNumber) {
+    public VirtualObject getVirtualObjectByMacAndChannelNumber(String mac, long channelNumber) {
 
         VirtualObject virtualObject = this.getVirtualObjectList().stream()
-                .filter(virtualDevice1 -> virtualDevice1.getMac() == mac && virtualDevice1.getChannelNumber() == channelNumber)
+                .filter(virtualDevice1 -> virtualDevice1.getMac().equals(mac) && virtualDevice1.getChannelNumber() == channelNumber)
                 .findAny()
                 .orElse(null);
 
@@ -165,5 +185,7 @@ public class StorageMenager {
         }
         return null;
     }
+
+
 
 }

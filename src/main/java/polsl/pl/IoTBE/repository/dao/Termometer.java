@@ -1,13 +1,16 @@
 package polsl.pl.IoTBE.repository.dao;
 
 import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
 import org.springframework.lang.Nullable;
 
 import javax.persistence.*;
 import java.util.List;
 
 
-@Data
+@Getter
+@Setter
 @Entity
 @Table(name = "termometer")
 public class Termometer {

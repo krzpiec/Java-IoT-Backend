@@ -23,11 +23,10 @@ public class TempSensorChannel extends VirtualChannel<TempSensor>
        return true;
     }
 
-
-    public void sendGetSignalToMqtt(VirtualObject virtualObject)
+    @Override
+    public void sendGetSignalToMqtt(String topic, String payload)
     {
-        String topic = virtualObject.getTopicPrefix() + "get";
-        String payload = "1";
+        topic += "/get";
         mqttController.publish(topic, payload);
 
     }

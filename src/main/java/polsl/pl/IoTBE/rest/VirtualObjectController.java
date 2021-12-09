@@ -54,6 +54,7 @@ public class VirtualObjectController {
     public ResponseEntity<VirtualSensorDto> add(@RequestBody VirtualSensorInitDto virtualSensorInitDto) throws JSONException {
 
         VirtualTermometer virtualTermometer = virtualObjectMapper.virtualSensorInitDtoToVirtualSensor(virtualSensorInitDto);
+        storageMenager.addVirtualObject(virtualTermometer);
         localizationRepository.save(virtualTermometer.getLocalization());
 
 
