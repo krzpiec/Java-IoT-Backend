@@ -42,15 +42,12 @@ public class Dbloader {
         return channelRepository.findAll();
     }
 
-//    Channel getChannelByMacAndType(String mac, String type){
-//        return channelRepository.findByMacAdrAndChannelNumber(mac,type);
-//    }
-
     Channel getChannelByMacAndChannelNumber(String mac, Long channelNumber){
         Device device = deviceRepository.findByMacAdr(mac);
         return channelRepository.findByDeviceAndChannelNumber(device,channelNumber);
     }
 
+    //todo different object types
     public List<VirtualObject> initializeVirtualObjectsFromDataBase(){
 
         List<Termometer> termometerList = termometerRepository.findAll();
@@ -69,8 +66,10 @@ public class Dbloader {
             );
 
         });
-        System.out.println("asdas");
         return virtualObjectList;
     }
+
+
+
 
 }

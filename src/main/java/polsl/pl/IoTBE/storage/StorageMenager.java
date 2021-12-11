@@ -4,10 +4,13 @@ package polsl.pl.IoTBE.storage;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.integration.mqtt.inbound.MqttPahoMessageDrivenChannelAdapter;
 import org.springframework.stereotype.Component;
 import polsl.pl.IoTBE.domain.VirtualObject;
 import polsl.pl.IoTBE.message.channel.TempSensorChannel;
 import polsl.pl.IoTBE.message.channel.VirtualChannel;
+import polsl.pl.IoTBE.message.handler.MqttMessageHandler;
+import polsl.pl.IoTBE.mqtt.MqttSubscriberConfig;
 import polsl.pl.IoTBE.repository.DeviceRepository;
 import polsl.pl.IoTBE.repository.dao.Channel;
 import polsl.pl.IoTBE.repository.dao.Device;
@@ -26,6 +29,11 @@ public class StorageMenager {
 
     @Autowired
     Dbloader dbloader;
+    @Autowired
+    MqttMessageHandler mqttMessageHandler;
+    @Autowired
+    MqttPahoMessageDrivenChannelAdapter adapter;
+
 
     List<VirtualObject> virtualObjectList;
     List<Device> deviceList;
@@ -34,7 +42,10 @@ public class StorageMenager {
 
 
     @PostConstruct
-    private void init() {
+    private void initSystem() {
+
+
+        mqttMessageHandler.setStorageMenager(this);
         this.deviceList = dbloader.getAllDevices();
         this.channelList = dbloader.getAllChannels();
 
@@ -50,15 +61,13 @@ public class StorageMenager {
                     getVirtualChannelByType(getChannelByMacAndChannelNumber(virtualObject.getMac(), virtualObject.getChannelNumber()).getType())
                             );
         });
-        System.out.println("asdas");
 
 
-//        channelTypes.forEach(
-//                type -> {
-//                    if(type.equals("Sensor"))
-//                            this.virtualChannelList.add(createVirtualChannelByType(type));
-//
-//        });
+
+           this.virtualObjectList.forEach(virtualObject -> {
+               this.adapter.addTopic(virtualObject.getTopicPrefix());
+           });
+
     }
 
     public void addVirtualObject(VirtualObject virtualObject)
@@ -128,23 +137,7 @@ public class StorageMenager {
     }
 
     //bad channel num or mac handla that
-    public boolean checkIfVirtualObjectExistsByMacAndChannelNumber(String mac, long channelNumber)
-    {
-        for(VirtualObject virtualObject: getVirtualObjectList())
-        {
-            if(virtualObject.getMac().equals(mac) && virtualObject.getChannelNumber() == channelNumber)
-                return true;
-        }
-        return false;
-    }
 
-    public boolean isDevicePresent(Device device) {
-        for (Device device1 : this.deviceList) {
-            if (device1.getMacAdr().equals(device.getMacAdr()))
-                return true;
-        }
-        return false;
-    }
 
     public void addChannel(Channel channel) {
         this.addChannel(channel);

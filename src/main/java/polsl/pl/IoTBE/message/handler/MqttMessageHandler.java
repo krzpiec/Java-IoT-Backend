@@ -1,6 +1,8 @@
 package polsl.pl.IoTBE.message.handler;
 
 import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.configurationprocessor.json.JSONException;
 import org.springframework.boot.configurationprocessor.json.JSONObject;
@@ -11,14 +13,18 @@ import polsl.pl.IoTBE.message.channel.VirtualChannel;
 import polsl.pl.IoTBE.storage.StorageMenager;
 
 
-@Data
+@Getter
+@Setter
 @Component
 public class MqttMessageHandler {
 
     private JSONObject jsonObject = null;
 
-    @Autowired
-    StorageMenager storageMenager;
+
+    private StorageMenager storageMenager = null;
+
+
+
 
     public void resolveMessage(Message<?> message) throws JSONException {
         String payLoad = message.getPayload().toString();

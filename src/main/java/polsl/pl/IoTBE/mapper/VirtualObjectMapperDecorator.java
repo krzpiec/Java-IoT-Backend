@@ -3,7 +3,9 @@ package polsl.pl.IoTBE.mapper;
 import org.apache.catalina.StoreManager;
 import org.springframework.beans.factory.annotation.Autowired;
 import polsl.pl.IoTBE.domain.VirtualTermometer;
+import polsl.pl.IoTBE.repository.dao.Device;
 import polsl.pl.IoTBE.repository.dao.Localization;
+import polsl.pl.IoTBE.responseComminicates.DeviceDtoResponse;
 import polsl.pl.IoTBE.rest.dto.LocalizationDto;
 import polsl.pl.IoTBE.rest.dto.VirtualSensorDto;
 import polsl.pl.IoTBE.rest.dto.VirtualSensorInitDto;
@@ -48,6 +50,7 @@ public abstract class VirtualObjectMapperDecorator implements VirtualObjectMappe
         virtualSensorDto.setVirtualChannelType(virtualTermometer.getDesiredType());
         return virtualSensorDto;
     }
+
 
 
 }

@@ -1,5 +1,6 @@
 package polsl.pl.IoTBE.mqtt;
 
+import lombok.Getter;
 import lombok.SneakyThrows;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,15 +16,18 @@ import org.springframework.messaging.MessageChannel;
 import org.springframework.messaging.MessageHandler;
 import org.springframework.messaging.MessagingException;
 import polsl.pl.IoTBE.message.handler.MqttMessageHandler;
+import polsl.pl.IoTBE.storage.StorageMenager;
 
 @Slf4j
 @Configuration
+@Getter
 public class MqttSubscriberConfig {
 
     MqttPahoMessageDrivenChannelAdapter adapter;
 
     @Autowired
     MqttMessageHandler mqttMessageHandler;
+
 
     @Bean
     public MessageChannel mqttInputChannel() {
