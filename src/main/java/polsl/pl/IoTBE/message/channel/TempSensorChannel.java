@@ -2,6 +2,8 @@ package polsl.pl.IoTBE.message.channel;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.configurationprocessor.json.JSONException;
+import polsl.pl.IoTBE.common.ChannelTypes;
+import polsl.pl.IoTBE.common.MqttConfigValues;
 import polsl.pl.IoTBE.domain.VirtualObject;
 import polsl.pl.IoTBE.mqtt.MqttController;
 
@@ -26,12 +28,12 @@ public class TempSensorChannel extends VirtualChannel<TempSensor>
 
     @Override
     public void sendGetSignalToMqtt(String topic, String payload)  {
-        topic += "/get";
+        topic += MqttConfigValues.sendRequestSuffix;
         mqttController.publish(topic, payload);
 
     }
     public void sendSetSignalToMqtt(VirtualObject virtualObject) throws JSONException {
-        String topic = virtualObject.getTopicPrefix() + "set";
+        String topic = virtualObject.getTopicPrefix() + MqttConfigValues.receiveRequestSuffix;
         String payload = "1";
         mqttController.publish(topic, payload);
 

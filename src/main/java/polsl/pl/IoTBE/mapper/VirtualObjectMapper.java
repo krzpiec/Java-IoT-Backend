@@ -5,6 +5,7 @@ import org.mapstruct.DecoratedWith;
 import org.mapstruct.Mapper;
 import polsl.pl.IoTBE.domain.VirtualObject;
 import polsl.pl.IoTBE.domain.VirtualTermometer;
+import polsl.pl.IoTBE.rest.dto.VirtualObjectDto;
 import polsl.pl.IoTBE.rest.dto.VirtualSensorDto;
 import polsl.pl.IoTBE.rest.dto.VirtualSensorInitDto;
 
@@ -12,6 +13,7 @@ import polsl.pl.IoTBE.rest.dto.VirtualSensorInitDto;
 @DecoratedWith(VirtualObjectMapperDecorator.class)
 public interface VirtualObjectMapper {
 
+    VirtualObjectDto virtualObjectToVirtualObjectDto(VirtualObject virtualObject);
 
     VirtualTermometer virtualSensorInitDtoToVirtualSensor(VirtualSensorInitDto virtualSensorInitDto);
 

@@ -19,6 +19,7 @@ public abstract class VirtualObject {
         this.desiredType = desiredType;
     }
 
+    //todo kiedys timestamp dodania
     protected String topicPrefix;//format MAC/channel/
     protected String mac;
     protected long channelNumber;

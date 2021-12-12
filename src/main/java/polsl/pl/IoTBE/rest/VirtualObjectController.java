@@ -40,13 +40,8 @@ public class VirtualObjectController {
     @PostMapping("/virtualObject/add")
     public ResponseEntity<String> check(@RequestBody VirtualObjectInitDto virtualObjectInitDto) throws JSONException {
 
-
-        String response = "";
-        boolean channelTaken = virtualObjectService.checkIfExists(virtualObjectInitDto.getMac(), virtualObjectInitDto.getChannelNumber());
-        if (channelTaken)
-            return ResponseEntity.ok("Channel taken");
-
-        return ResponseEntity.ok("Channel free");
+       virtualObjectService.checkPassedMacAndChannelNumber(virtualObjectInitDto.getMacAdr(), virtualObjectInitDto.getChannelNumber());
+       return ResponseEntity.ok("Channel free - add object");
     }
 
 

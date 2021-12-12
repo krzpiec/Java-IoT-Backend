@@ -1,25 +1,19 @@
 package polsl.pl.IoTBE.validators;
 
-import org.springframework.beans.factory.annotation.Autowired;
+
 import org.springframework.boot.configurationprocessor.json.JSONArray;
 import org.springframework.boot.configurationprocessor.json.JSONException;
 import org.springframework.boot.configurationprocessor.json.JSONObject;
 import org.springframework.stereotype.Component;
 import polsl.pl.IoTBE.common.ChannelTypes;
 import polsl.pl.IoTBE.common.MqttConfigValues;
-import polsl.pl.IoTBE.domain.VirtualObject;
-import polsl.pl.IoTBE.repository.dao.Device;
-import polsl.pl.IoTBE.storage.StorageMenager;
+
 
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 @Component
 public class NewDeviceValidator {
-
-    @Autowired
-    StorageMenager storageMenager;
-
 
     public boolean validateMac(String mac){
 
@@ -40,24 +34,6 @@ public class NewDeviceValidator {
 
         return m.matches();
 
-    }
-
-    public boolean checkIfVirtualObjectExistsByMacAndChannelNumber(String mac, long channelNumber)
-    {
-        for(VirtualObject virtualObject: storageMenager.getVirtualObjectList())
-        {
-            if(virtualObject.getMac().equals(mac) && virtualObject.getChannelNumber() == channelNumber)
-                return true;
-        }
-        return false;
-    }
-
-    public Device isDevicePresent(Device device) {
-        for (Device device1 : storageMenager.getDeviceList()) {
-            if (device1.getMacAdr().equals(device.getMacAdr()))
-                return device1;
-        }
-        return null;
     }
 
     public String validatateJsonConfig(JSONObject config) throws JSONException {

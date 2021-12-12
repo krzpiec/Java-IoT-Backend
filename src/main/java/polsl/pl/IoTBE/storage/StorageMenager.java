@@ -96,7 +96,6 @@ public class StorageMenager {
         return channelList;
     }
 
-
     public String getTypeByMacAndChannelNumber(String mac, long channelNumber) {
 
 
@@ -128,6 +127,7 @@ public class StorageMenager {
 
     }
 
+
     public Channel getChannelByMacAndChannelNumber(String mac, Long channelNumber){
         for(Channel channel: this.channelList){
             if(channel.getDevice().getMacAdr().equals(mac) && channel.getChannelNumber() == channelNumber)
@@ -135,9 +135,6 @@ public class StorageMenager {
         }
         return null;
     }
-
-    //bad channel num or mac handla that
-
 
     public void addChannel(Channel channel) {
         this.addChannel(channel);
@@ -177,6 +174,22 @@ public class StorageMenager {
                 return device;
         }
         return null;
+    }
+
+    public Device isDevicePresent(Device device) {
+        for (Device device1 : this.deviceList) {
+            if (device1.getMacAdr().equals(device.getMacAdr()))
+                return device1;
+        }
+        return null;
+    }
+
+    public boolean isMacPresent(String mac){
+        for (Device device1 : this.deviceList) {
+            if (device1.getMacAdr().equals(mac))
+                return true;
+        }
+        return false;
     }
 
 

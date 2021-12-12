@@ -2,11 +2,13 @@ package polsl.pl.IoTBE.mapper;
 
 import org.apache.catalina.StoreManager;
 import org.springframework.beans.factory.annotation.Autowired;
+import polsl.pl.IoTBE.domain.VirtualObject;
 import polsl.pl.IoTBE.domain.VirtualTermometer;
 import polsl.pl.IoTBE.repository.dao.Device;
 import polsl.pl.IoTBE.repository.dao.Localization;
 import polsl.pl.IoTBE.responseComminicates.DeviceDtoResponse;
 import polsl.pl.IoTBE.rest.dto.LocalizationDto;
+import polsl.pl.IoTBE.rest.dto.VirtualObjectDto;
 import polsl.pl.IoTBE.rest.dto.VirtualSensorDto;
 import polsl.pl.IoTBE.rest.dto.VirtualSensorInitDto;
 import polsl.pl.IoTBE.storage.StorageMenager;
@@ -51,6 +53,14 @@ public abstract class VirtualObjectMapperDecorator implements VirtualObjectMappe
         return virtualSensorDto;
     }
 
+    @Override
+    public VirtualObjectDto virtualObjectToVirtualObjectDto(VirtualObject virtualObject){
+        VirtualObjectDto virtualObjectDto = delegate.virtualObjectToVirtualObjectDto(virtualObject);
+        LocalizationDto localizationDto = new LocalizationDto(virtualObject.getLocalization(), virtualObject.getLocalization().getDescription());
 
+        virtualObjectDto.setLocalizationDto(localizationDto);
+        return virtualObjectDto;
+
+    }
 
 }

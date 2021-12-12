@@ -5,6 +5,6 @@ import lombok.Data;
 @Data
 public class VirtualObjectInitDto {
 
-    String Mac;
+    String macAdr;
     long channelNumber;
 }

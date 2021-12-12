@@ -45,7 +45,7 @@ public class DeviceService {
         if(!newDeviceValidator.validateMac(device.getMacAdr()))
             throw new InvalidMacException(device.getMacAdr());
 
-        Device devicePresent = newDeviceValidator.isDevicePresent(device);
+        Device devicePresent = storageMenager.isDevicePresent(device);
         if( devicePresent != null) {
             throw new DevicePresentException(deviceMapper.deviceToDeviceDto(devicePresent));
         }
@@ -56,7 +56,7 @@ public class DeviceService {
             throw new TopicAlreadySubscribedException(device.getMacAdr());
         String deviceConfigTopic = device.getMacAdr() + MqttConfigValues.configSuffix + MqttConfigValues.sendRequestSuffix;
         //todo fix this
-      //  this.mqttController.publish("00:00:00:00:00:04/config/get", MqttConfigValues.configMessageGet);
+        //this.mqttController.publish(deviceConfigTopic, MqttConfigValues.configMessageGet);
 
         JSONObject deviceConfigJson = configHandler.getConfig();
         String jsonValidationResult = newDeviceValidator.validatateJsonConfig(deviceConfigJson);
