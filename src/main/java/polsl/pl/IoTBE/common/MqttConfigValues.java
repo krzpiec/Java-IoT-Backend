@@ -10,7 +10,7 @@ public class MqttConfigValues {
     public static String sendRequestSuffix = "/get";
     public static String receiveRequestSuffix = "/receive";
     public static String configSuffix = "/config";
-    public static String configMessageGet = "a";
+    public static String configMessageGet = "dawajkonfiga";
 
     public static String configPortName = "port";
     public static String configTypeName = "type";

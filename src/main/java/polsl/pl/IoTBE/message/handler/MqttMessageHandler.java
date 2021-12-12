@@ -9,6 +9,7 @@ import org.springframework.boot.configurationprocessor.json.JSONObject;
 import org.springframework.messaging.Message;
 import org.springframework.stereotype.Component;
 import polsl.pl.IoTBE.domain.VirtualObject;
+import polsl.pl.IoTBE.exceptions.InvalidMqttMessageException;
 import polsl.pl.IoTBE.message.channel.VirtualChannel;
 import polsl.pl.IoTBE.storage.StorageMenager;
 
@@ -23,17 +24,30 @@ public class MqttMessageHandler {
 
     private StorageMenager storageMenager = null;
 
+    
+    public void resolveMessage(Message<?> message) {
+        String payLoad = null;
+        String topic = null;
+        try{
+            payLoad = message.getPayload().toString();
+            topic = message.getHeaders().get("mqtt_receivedTopic").toString();
+        }
+        catch (Exception ex){
+            throw new InvalidMqttMessageException("getting topic and headers");
+        }
 
-
-
-    public void resolveMessage(Message<?> message) throws JSONException {
-        String payLoad = message.getPayload().toString();
-        String topic = message.getHeaders().get("mqtt_receivedTopic").toString();
-
+        System.out.println(payLoad);
+        System.out.println(topic);
         String[] topicSegments = topic.split("/");
         if(topicSegments[1].equals("config"))
         {
-            jsonObject = new JSONObject(payLoad);
+            try{
+                jsonObject = new JSONObject(payLoad);
+            }
+            catch(Exception ex){
+                throw new InvalidMqttMessageException("config conversion");
+            }
+
             return;
         }
 

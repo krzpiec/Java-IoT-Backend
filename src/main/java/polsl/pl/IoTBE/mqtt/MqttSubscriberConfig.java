@@ -53,7 +53,6 @@ public class MqttSubscriberConfig {
     public MessageHandler handler() {
         return new MessageHandler() {
 
-            @SneakyThrows
             @Override
             public void handleMessage(Message<?> message) throws MessagingException {
                 mqttMessageHandler.resolveMessage(message);

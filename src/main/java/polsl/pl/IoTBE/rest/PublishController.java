@@ -5,6 +5,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import polsl.pl.IoTBE.domain.VirtualObject;
 import polsl.pl.IoTBE.mapper.ChannelMapper;
+import polsl.pl.IoTBE.message.channel.VirtualChannel;
+import polsl.pl.IoTBE.mqtt.MqttController;
 import polsl.pl.IoTBE.repository.dao.Channel;
 import polsl.pl.IoTBE.repository.dao.Device;
 import polsl.pl.IoTBE.rest.dto.ChannelDto;
@@ -23,6 +25,10 @@ public class PublishController {
     StorageMenager storageMenager;
     @Autowired
     ChannelMapper channelMapper;
+
+    @Autowired
+    MqttController mqttController;
+
     @GetMapping("/{macAdr}")
     public ResponseEntity<List<ChannelDto>> add(@PathVariable String macAdr) {
 
@@ -42,6 +48,7 @@ public class PublishController {
         VirtualObject virtualObject = storageMenager.getVirtualObjectByMacAndChannelNumber(macAdr,Long.parseLong(channelNumber));
         virtualObject.getVirtualChannel().sendGetSignalToMqtt(virtualObject.getTopicPrefix(), message.getPayLoad());
 
+        //mqttController.publish(virtualObject.getTopicPrefix(), message.getPayLoad());
         String response = "Message send to topic: " + virtualObject.getTopicPrefix() + " message: " + message.getPayLoad();
         return ResponseEntity.ok(response);
     }

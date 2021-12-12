@@ -40,7 +40,7 @@ public class DeviceService {
     MqttController mqttController;
 
 
-    public Device addDevice(Device device) throws JSONException {
+    public Device addDevice(Device device)  {
 
         if(!newDeviceValidator.validateMac(device.getMacAdr()))
             throw new InvalidMacException(device.getMacAdr());
@@ -51,17 +51,18 @@ public class DeviceService {
         }
 
 
+        //todo usuwanie topica
         boolean topicAlreadySubscribed = this.configHandler.subscribeToGetConfigTopic(device);
         if(topicAlreadySubscribed)
             throw new TopicAlreadySubscribedException(device.getMacAdr());
         String deviceConfigTopic = device.getMacAdr() + MqttConfigValues.configSuffix + MqttConfigValues.sendRequestSuffix;
-        //todo fix this
-        //this.mqttController.publish(deviceConfigTopic, MqttConfigValues.configMessageGet);
+
+        this.mqttController.publish(deviceConfigTopic, MqttConfigValues.configMessageGet);
 
         JSONObject deviceConfigJson = configHandler.getConfig();
         String jsonValidationResult = newDeviceValidator.validatateJsonConfig(deviceConfigJson);
         if(!jsonValidationResult.equals("OK")){
-            this.configHandler.removeTopic(deviceConfigTopic);
+            this.configHandler.removeConfigTopic(device);
             throw new InvalidConfigException(jsonValidationResult);
         }
 

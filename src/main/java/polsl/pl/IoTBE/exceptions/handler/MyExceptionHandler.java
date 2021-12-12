@@ -58,4 +58,11 @@ public class MyExceptionHandler extends ResponseEntityExceptionHandler {
 
         return new ResponseEntity<VirtualObjectDtoResponse>(channelTakenException.getVirtualObjectDtoResponse(), HttpStatus.BAD_REQUEST);
     }
+
+
+    @ExceptionHandler(value = {InvalidMqttMessageException.class})
+    protected ResponseEntity<String> handleInvalidMqttMessage(InvalidMqttMessageException invalidMqttMessageException){
+
+        return new ResponseEntity<String>(invalidMqttMessageException.getMessage(), HttpStatus.BAD_REQUEST);
+    }
 }

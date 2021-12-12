@@ -63,11 +63,11 @@ public class StorageMenager {
         });
 
 
-
+//todo poprawne dodawanie topicow - dodac enum i jazda
            this.virtualObjectList.forEach(virtualObject -> {
                this.adapter.addTopic(virtualObject.getTopicPrefix());
            });
-
+        System.out.println("asdsa");
     }
 
     public void addVirtualObject(VirtualObject virtualObject)

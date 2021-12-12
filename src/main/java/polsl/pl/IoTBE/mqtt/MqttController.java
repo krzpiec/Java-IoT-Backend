@@ -16,11 +16,7 @@ public class MqttController {
     @Autowired
     MqttGateway mqtGateway;
 
-
-
     public ResponseEntity<?> publish(String topic, String payload)  {
-
-
 
         try {
             JSONObject jsonObject = new JSONObject();

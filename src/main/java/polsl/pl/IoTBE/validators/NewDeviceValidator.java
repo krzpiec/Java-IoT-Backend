@@ -36,7 +36,7 @@ public class NewDeviceValidator {
 
     }
 
-    public String validatateJsonConfig(JSONObject config) throws JSONException {
+    public String validatateJsonConfig(JSONObject config) {
         String result = null;
         if(config == null){
             result = "No config json";
