@@ -63,6 +63,7 @@ public class NewDeviceValidator {
                 result = "No port in json";
                 return result;
             }
+
             try{
 
                 Integer.parseInt(channelNumberString);

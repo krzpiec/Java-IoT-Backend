@@ -40,7 +40,7 @@ public class DeviceService {
     MqttController mqttController;
 
 
-    public Device addDevice(Device device)  {
+    public Device addDevice(Device device)        {
 
         if(!newDeviceValidator.validateMac(device.getMacAdr()))
             throw new InvalidMacException(device.getMacAdr());
@@ -51,7 +51,6 @@ public class DeviceService {
         }
 
 
-        //todo usuwanie topica
         boolean topicAlreadySubscribed = this.configHandler.subscribeToGetConfigTopic(device);
         if(topicAlreadySubscribed)
             throw new TopicAlreadySubscribedException(device.getMacAdr());

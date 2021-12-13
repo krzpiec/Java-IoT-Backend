@@ -59,7 +59,7 @@ public class ConfigHandler {
             }
         }
         catch(Exception ex){
-            throw new InvalidMqttMessageException("twoj stary");
+            throw new InvalidMqttMessageException("Config conversion to channel list");
         }
 
 
