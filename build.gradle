@@ -22,6 +22,9 @@ dependencies {
 	compileOnly 'org.projectlombok:lombok:1.18.22'
 	annotationProcessor 'org.projectlombok:lombok:1.18.22'
 
+
+	implementation "com.github.davidmoten:rtree:0.8.7"
+
 	implementation 'org.hibernate:hibernate-core'
 	implementation 'org.postgresql:postgresql'
 
