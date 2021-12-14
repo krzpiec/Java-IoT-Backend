@@ -1,8 +1,5 @@
-package polsl.pl.IoTBE.TestingRtree;
+package polsl.pl.IoTBE.RTree.testing;
 
-import com.github.davidmoten.rtree.geometry.Geometries;
-import lombok.AllArgsConstructor;
-import lombok.Data;
 import lombok.Getter;
 
 import java.util.List;

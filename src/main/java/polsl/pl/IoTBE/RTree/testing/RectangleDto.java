@@ -1,4 +1,4 @@
-package polsl.pl.IoTBE.TestingRtree;
+package polsl.pl.IoTBE.RTree.testing;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
