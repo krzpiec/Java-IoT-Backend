@@ -8,7 +8,7 @@ import java.util.List;
 @Getter
 public class NoResponseFromSensorException extends RuntimeException{
 
-    List<String> topicPrefixes = new ArrayList<>();
+    List<String> topicPrefixes;
 
     public NoResponseFromSensorException(List<String> topicPrefixes) {
         super();

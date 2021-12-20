@@ -142,10 +142,9 @@ public class RTreeService {
 
         rTreeManager.addDoubleNode(vo, Geometries.circle(5, 5, 5), TreeTypes.DoubleNode);
 
-//        for(int i=1; i<100; i+=3){
-//            rTreeManager.addDoubleNode(vo,Geometries.circle(i, i, 1), tempRTreeType);
-//        }
-
-//        rTreeManager.visualize(600,600,RTreeConfigValues.visualizationPath, tempRTreeType);
+        for(int i=1; i<100; i+=3){
+            rTreeManager.addDoubleNode(vo,Geometries.circle(i, i, 1), TreeTypes.DoubleNode);
+        }
+       // rTreeManager.visualize(600,600,RTreeConfigValues.visualizationPath,);
     }
 }
