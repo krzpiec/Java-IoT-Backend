@@ -5,6 +5,7 @@ import org.springframework.boot.configurationprocessor.json.JSONException;
 import polsl.pl.IoTBE.common.ChannelTypes;
 import polsl.pl.IoTBE.common.MqttConfigValues;
 import polsl.pl.IoTBE.domain.VirtualObject;
+import polsl.pl.IoTBE.exceptions.WrongPayloadException;
 import polsl.pl.IoTBE.mqtt.MqttController;
 
 
@@ -22,7 +23,16 @@ public class TempSensorChannel extends VirtualChannel<TempSensor>
     @Override
     public Boolean executeMessage(String msg, TempSensor virtualDevice) {
 
-       virtualDevice.changeTemperature(10);
+        try{
+            double readValue = Double.parseDouble(msg);
+            virtualDevice.changeTemperature(readValue);
+        }
+        catch (NumberFormatException ex){
+           return false;
+        }
+
+
+
        return true;
     }
 

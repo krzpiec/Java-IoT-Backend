@@ -24,7 +24,7 @@ public class MqttMessageHandler {
 
     private StorageMenager storageMenager = null;
 
-    
+    //todo exceptions
     public void resolveMessage(Message<?> message) {
         String payLoad = null;
         String topic = null;
@@ -36,8 +36,8 @@ public class MqttMessageHandler {
             throw new InvalidMqttMessageException("getting topic and headers");
         }
 
-        System.out.println(payLoad);
-        System.out.println(topic);
+//        System.out.println(payLoad);
+//        System.out.println(topic);
         String[] topicSegments = topic.split("/");
         if(topicSegments[1].equals("config"))
         {

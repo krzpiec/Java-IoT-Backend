@@ -1,11 +1,16 @@
 package polsl.pl.IoTBE.storage;
 
 
+import com.github.davidmoten.rtree.geometry.Geometries;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.integration.mqtt.inbound.MqttPahoMessageDrivenChannelAdapter;
 import org.springframework.stereotype.Component;
+import polsl.pl.IoTBE.RTree.RTreeManager;
+import polsl.pl.IoTBE.RTree.SupportedMyRTreeNodeTypes;
+import polsl.pl.IoTBE.RTree.TreeTypes;
+import polsl.pl.IoTBE.common.MqttConfigValues;
 import polsl.pl.IoTBE.domain.VirtualObject;
 import polsl.pl.IoTBE.message.channel.TempSensorChannel;
 import polsl.pl.IoTBE.message.channel.VirtualChannel;
@@ -33,7 +38,8 @@ public class StorageMenager {
     MqttMessageHandler mqttMessageHandler;
     @Autowired
     MqttPahoMessageDrivenChannelAdapter adapter;
-
+    @Autowired
+    RTreeManager rTreeManager;
 
     List<VirtualObject> virtualObjectList;
     List<Device> deviceList;
@@ -65,9 +71,20 @@ public class StorageMenager {
 
 //todo poprawne dodawanie topicow - dodac enum i jazda
            this.virtualObjectList.forEach(virtualObject -> {
-               this.adapter.addTopic(virtualObject.getTopicPrefix());
+               this.adapter.addTopic(virtualObject.getTopicPrefix() + MqttConfigValues.receiveRequestSuffix);
            });
-        System.out.println("asdsa");
+
+
+          rTreeManager.create(SupportedMyRTreeNodeTypes.doubleNode);
+
+
+          var xd = this.adapter.getTopic();
+          //todo stworzenie geometry z dobra lokalizacja
+
+          this.virtualObjectList.forEach(vo ->{
+              rTreeManager.addDoubleNode(vo, Geometries.circle(vo.getLocalization().getLatitude(), vo.getLocalization().getLongitude(), 5) , TreeTypes.DoubleNode);
+          });
+
     }
 
     public void addVirtualObject(VirtualObject virtualObject)

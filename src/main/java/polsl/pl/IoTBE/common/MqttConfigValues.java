@@ -16,6 +16,8 @@ public class MqttConfigValues {
     public static String configTypeName = "type";
     public static String configChannelName = "channels";
 
-    public static int waitForConfigResponseTimeSeconds = 20;
+    public static String getMeasurementPayload = "1";
 
+    public static int waitForConfigResponseTimeSeconds = 20;
+    public static int waitForMeasurementResponseTimeSeconds = 10;
 }

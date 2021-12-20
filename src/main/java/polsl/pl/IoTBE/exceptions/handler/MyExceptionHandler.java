@@ -10,6 +10,8 @@ import polsl.pl.IoTBE.responseComminicates.DeviceDtoResponse;
 import polsl.pl.IoTBE.responseComminicates.VirtualObjectDtoResponse;
 import polsl.pl.IoTBE.rest.dto.VirtualObjectDto;
 
+import java.util.List;
+
 @ControllerAdvice
 public class MyExceptionHandler extends ResponseEntityExceptionHandler {
 
@@ -64,5 +66,17 @@ public class MyExceptionHandler extends ResponseEntityExceptionHandler {
     protected ResponseEntity<String> handleInvalidMqttMessage(InvalidMqttMessageException invalidMqttMessageException){
 
         return new ResponseEntity<String>(invalidMqttMessageException.getMessage(), HttpStatus.BAD_REQUEST);
+    }
+    @ExceptionHandler(value = {NoResponseFromSensorException.class})
+    protected ResponseEntity<List<String>> handleNoResponseFromSensors(NoResponseFromSensorException noResponseFromSensorException){
+
+        return new ResponseEntity<List<String>>(noResponseFromSensorException.getTopicPrefixes(), HttpStatus.BAD_REQUEST);
+    }
+
+
+    @ExceptionHandler(value = {WrongPayloadException.class})
+    protected ResponseEntity<String> handleWrondPayloadException(WrongPayloadException wrongPayloadException){
+
+        return new ResponseEntity<String>(wrongPayloadException.getMessage(), HttpStatus.BAD_REQUEST);
     }
 }

@@ -3,13 +3,18 @@ package polsl.pl.IoTBE.domain;
 import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
+import org.springframework.beans.factory.annotation.Autowired;
+import polsl.pl.IoTBE.events.MeasurementDonePublisher;
 import polsl.pl.IoTBE.message.channel.TempSensor;
 import polsl.pl.IoTBE.message.channel.VirtualChannel;
 import polsl.pl.IoTBE.repository.dao.Localization;
 
+import java.sql.Timestamp;
+
 @Getter
 @Setter
 public class VirtualTermometer extends VirtualObject implements TempSensor {
+
 
 
     public VirtualTermometer(String mac, long channelNumber, VirtualChannel virtualChannel, Localization localization, String unit, int lastReadValue, String desiredType) {
@@ -19,13 +24,20 @@ public class VirtualTermometer extends VirtualObject implements TempSensor {
     }
 
     private String unit;
-    private int lastReadValue; //zmienic na double
+    private double lastReadValue; //zmienic na double
+
+    //todo double wstaw
+    @Override
+    public double getValue(){
+        return this.lastReadValue;
+    }
 
 
     @Override
-    public void changeTemperature(int delta)
+    public void changeTemperature(double delta)
     {
-        this.lastReadValue = delta;
+        this.lastValueTimestamp = new Timestamp(System.currentTimeMillis());
 
+       this.lastReadValue = delta;
     }
 }
