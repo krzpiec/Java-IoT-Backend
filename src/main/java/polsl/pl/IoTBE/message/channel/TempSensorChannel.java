@@ -7,12 +7,15 @@ import polsl.pl.IoTBE.common.MqttConfigValues;
 import polsl.pl.IoTBE.domain.VirtualObject;
 import polsl.pl.IoTBE.exceptions.WrongPayloadException;
 import polsl.pl.IoTBE.mqtt.MqttController;
+import polsl.pl.IoTBE.repository.TemperatureHistoryRepository;
 
 
 public class TempSensorChannel extends VirtualChannel<TempSensor>
 {
     @Autowired
     MqttController mqttController;
+    @Autowired
+    TemperatureHistoryRepository temperatureHistoryRepository;
 
     public TempSensorChannel(String type)
     {

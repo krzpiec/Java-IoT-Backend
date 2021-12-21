@@ -61,8 +61,6 @@ public class RTreeService {
 
         updateNodeHistories(foundNodes);
 
-        topicPrefixes.add(0,"got all readings :))");
-
         return fetchResults(foundNodes);
     }
 

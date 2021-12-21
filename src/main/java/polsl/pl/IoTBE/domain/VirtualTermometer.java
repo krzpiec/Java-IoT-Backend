@@ -26,7 +26,7 @@ public class VirtualTermometer extends VirtualObject implements TempSensor {
     private String unit;
     private double lastReadValue; //zmienic na double
 
-    //todo double wstaw
+
     @Override
     public double getValue(){
         return this.lastReadValue;
