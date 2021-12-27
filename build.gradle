@@ -22,10 +22,11 @@ dependencies {
 	compileOnly 'org.projectlombok:lombok:1.18.22'
 	annotationProcessor 'org.projectlombok:lombok:1.18.22'
 
-	implementation 'org.hibernate:hibernate-core'
-	runtimeOnly 'com.h2database:h2'
-	implementation 'org.postgresql:postgresql'
 
+	implementation "com.github.davidmoten:rtree:0.8.7"
+
+	implementation 'org.hibernate:hibernate-core'
+	implementation 'org.postgresql:postgresql'
 	implementation 'com.cedarsoftware:json-io:4.1.8'
 	implementation 'com.google.code.gson:gson'
 	implementation "org.springframework.boot:spring-boot-configuration-processor:2.0.1.RELEASE"

@@ -1,14 +1,21 @@
 package polsl.pl.IoTBE.message.channel;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.configurationprocessor.json.JSONException;
+import polsl.pl.IoTBE.common.ChannelTypes;
+import polsl.pl.IoTBE.common.MqttConfigValues;
 import polsl.pl.IoTBE.domain.VirtualObject;
+import polsl.pl.IoTBE.exceptions.WrongPayloadException;
 import polsl.pl.IoTBE.mqtt.MqttController;
+import polsl.pl.IoTBE.repository.TemperatureHistoryRepository;
 
 
 public class TempSensorChannel extends VirtualChannel<TempSensor>
 {
     @Autowired
     MqttController mqttController;
+    @Autowired
+    TemperatureHistoryRepository temperatureHistoryRepository;
 
     public TempSensorChannel(String type)
     {
@@ -19,21 +26,27 @@ public class TempSensorChannel extends VirtualChannel<TempSensor>
     @Override
     public Boolean executeMessage(String msg, TempSensor virtualDevice) {
 
-       virtualDevice.changeTemperature(10);
+        try{
+            double readValue = Double.parseDouble(msg);
+            virtualDevice.changeTemperature(readValue);
+        }
+        catch (NumberFormatException ex){
+           return false;
+        }
+
+
+
        return true;
     }
 
-
-    public void sendGetSignalToMqtt(VirtualObject virtualObject)
-    {
-        String topic = virtualObject.getTopicPrefix() + "get";
-        String payload = "1";
+    @Override
+    public void sendGetSignalToMqtt(String topic, String payload)  {
+        topic += MqttConfigValues.sendRequestSuffix;
         mqttController.publish(topic, payload);
 
     }
-    public void sendSetSignalToMqtt(VirtualObject virtualObject)
-    {
-        String topic = virtualObject.getTopicPrefix() + "set";
+    public void sendSetSignalToMqtt(VirtualObject virtualObject) throws JSONException {
+        String topic = virtualObject.getTopicPrefix() + MqttConfigValues.receiveRequestSuffix;
         String payload = "1";
         mqttController.publish(topic, payload);
 

@@ -2,6 +2,7 @@ package polsl.pl.IoTBE.mapper;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import polsl.pl.IoTBE.repository.dao.Device;
+import polsl.pl.IoTBE.responseComminicates.DeviceDtoResponse;
 import polsl.pl.IoTBE.rest.dto.DeviceDescriptionDto;
 import polsl.pl.IoTBE.rest.dto.DeviceDto;
 
@@ -58,8 +59,13 @@ public abstract class DeviceMapperDecorator implements DeviceMapper
         return deviceDto;
     }
 
+
+
+
     private DeviceDto addChannelList(DeviceDto deviceDto, Device device) {
         deviceDto.setChannelDtoList(null);
         return deviceDto;
     }
+
+
 }
