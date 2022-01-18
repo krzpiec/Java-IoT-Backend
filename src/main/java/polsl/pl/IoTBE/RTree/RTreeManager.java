@@ -26,6 +26,11 @@ public class RTreeManager {
     Map<TreeTypes, RTree> rTreeMap = new HashMap<>();
 
 
+
+    public void deleteTree(TreeTypes type){
+        this.rTreeMap.put(type, rTreeFactory.createRTreeFromParam(SupportedMyRTreeNodeTypes.doubleNode));
+    }
+
     public void create(SupportedMyRTreeNodeTypes type){
         TreeTypes mapKey = TreeTypes.values()[type.ordinal()];
         if(this.rTreeMap.get(mapKey) == null){

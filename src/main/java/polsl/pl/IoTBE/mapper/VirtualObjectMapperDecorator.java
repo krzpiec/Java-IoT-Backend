@@ -22,8 +22,8 @@ public abstract class VirtualObjectMapperDecorator implements VirtualObjectMappe
     public VirtualTermometer virtualSensorInitDtoToVirtualSensor(VirtualSensorInitDto virtualSensorInitDto){
         VirtualTermometer virtualTermometer = delegate.virtualSensorInitDtoToVirtualSensor(virtualSensorInitDto);
         Localization localization = new Localization();
-        localization.setLatitude(Double.parseDouble(virtualSensorInitDto.getLatitude()));
-        localization.setLongitude(Double.parseDouble(virtualSensorInitDto.getLongitude()));
+        localization.setLatitude(virtualSensorInitDto.getLatitude());
+        localization.setLongitude(virtualSensorInitDto.getLongitude());
         virtualTermometer.setLocalization(localization);
         String topicPrefix = virtualSensorInitDto.getMacAdr() + "/" + virtualSensorInitDto.getChannelNumber();
         virtualTermometer.setTopicPrefix(topicPrefix);
@@ -55,6 +55,8 @@ public abstract class VirtualObjectMapperDecorator implements VirtualObjectMappe
 
     @Override
     public VirtualObjectDto virtualObjectToVirtualObjectDto(VirtualObject virtualObject){
+        if(virtualObject == null)
+            return null;
         VirtualObjectDto virtualObjectDto = delegate.virtualObjectToVirtualObjectDto(virtualObject);
         LocalizationDto localizationDto = new LocalizationDto(virtualObject.getLocalization(), virtualObject.getLocalization().getDescription());
 

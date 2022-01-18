@@ -9,6 +9,6 @@ String macAdr;
 String channelNumber;
 String unit;
 String description;
-String latitude;
-String longitude;
+double latitude;
+double longitude;
 }

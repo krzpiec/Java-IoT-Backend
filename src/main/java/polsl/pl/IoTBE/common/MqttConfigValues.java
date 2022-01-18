@@ -12,6 +12,9 @@ public class MqttConfigValues {
     public static String configSuffix = "/config";
     public static String configMessageGet = "dawajkonfiga";
 
+    public static String DeviceSimulatorSendTopicsToSubscribe = "DeviceSimulator/topics";
+
+
     public static String configPortName = "port";
     public static String configTypeName = "type";
     public static String configChannelName = "channels";

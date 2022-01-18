@@ -1,4 +1,4 @@
-package polsl.pl.IoTBE.RTree.testing;
+package polsl.pl.IoTBE.RTree;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -8,8 +8,8 @@ import lombok.Data;
 public class RectangleDto {
 
     private String name;
-    private int x1;
-    private int y1;
-    private int x2;
-    private int y2;
+    private double x1;
+    private double y1;
+    private double x2;
+    private double y2;
 }

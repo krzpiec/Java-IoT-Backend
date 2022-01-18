@@ -3,10 +3,13 @@ package polsl.pl.IoTBE.mapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import polsl.pl.IoTBE.repository.dao.Device;
 import polsl.pl.IoTBE.responseComminicates.DeviceDtoResponse;
+import polsl.pl.IoTBE.rest.dto.ChannelDto;
 import polsl.pl.IoTBE.rest.dto.DeviceDescriptionDto;
 import polsl.pl.IoTBE.rest.dto.DeviceDto;
 
 import java.sql.Timestamp;
+import java.util.ArrayList;
+import java.util.List;
 
 public abstract class DeviceMapperDecorator implements DeviceMapper
 {
@@ -21,8 +24,13 @@ public abstract class DeviceMapperDecorator implements DeviceMapper
     public DeviceDto deviceToDeviceDto(Device device) {
        DeviceDto deviceDto = delegate.deviceToDeviceDto(device);
        DeviceDescriptionDto deviceDescriptionDto = delegate.deviceToDeviceDescriptionDto(device);
+       List<ChannelDto> channelDtoList = new ArrayList<>();
+       device.getChannels().forEach(channel ->{
+           ChannelDto channelDto = channelMapper.channelToChannelDto(channel);
+           channelDtoList.add(channelDto);
+       });
        deviceDto.setDeviceDescription(deviceDescriptionDto);
-       addChannelList(deviceDto, device);
+       deviceDto.setChannelDtoList(channelDtoList);
 
         return deviceDto;
     }
@@ -59,13 +67,6 @@ public abstract class DeviceMapperDecorator implements DeviceMapper
         return deviceDto;
     }
 
-
-
-
-    private DeviceDto addChannelList(DeviceDto deviceDto, Device device) {
-        deviceDto.setChannelDtoList(null);
-        return deviceDto;
-    }
 
 
 }

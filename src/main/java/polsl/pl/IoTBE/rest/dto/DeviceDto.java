@@ -7,7 +7,6 @@ import java.util.List;
 
 @Data
 public class DeviceDto {
-
     private DeviceDescriptionDto deviceDescription;
     private List<ChannelDto> channelDtoList;
     private Timestamp createTime;

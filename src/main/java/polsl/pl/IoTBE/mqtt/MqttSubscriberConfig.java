@@ -65,7 +65,7 @@ public class MqttSubscriberConfig {
 
     public void addTopic(String topic){
         this.adapter.addTopic(topic);
-        System.out.println(this.adapter.getTopic());
+
 
     }
 }

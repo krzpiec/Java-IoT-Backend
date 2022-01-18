@@ -7,4 +7,5 @@ public class VirtualObjectInitDto {
 
     String macAdr;
     long channelNumber;
+    String type;
 }

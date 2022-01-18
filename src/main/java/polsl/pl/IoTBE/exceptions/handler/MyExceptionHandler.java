@@ -79,4 +79,10 @@ public class MyExceptionHandler extends ResponseEntityExceptionHandler {
 
         return new ResponseEntity<String>(wrongPayloadException.getMessage(), HttpStatus.BAD_REQUEST);
     }
+    @ExceptionHandler(value = {InvalidTypeForChannelException.class})
+    protected ResponseEntity<String> invalidTypeForChannel(InvalidTypeForChannelException invalidTypeForChannelException){
+
+        String message = invalidTypeForChannelException.getMessage() + " desired type: " + invalidTypeForChannelException.getDesiredType();
+        return new ResponseEntity<String>(message, HttpStatus.BAD_REQUEST);
+    }
 }

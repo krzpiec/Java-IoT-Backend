@@ -1,8 +1,12 @@
 package polsl.pl.IoTBE.rest.dto;
 
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
 
-@Data
+@Getter
+@Setter
 public class VirtualObjectDto {
     String mac;
     long channelNumber;

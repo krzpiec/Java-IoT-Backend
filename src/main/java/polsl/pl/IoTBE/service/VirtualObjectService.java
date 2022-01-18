@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import polsl.pl.IoTBE.domain.VirtualObject;
 import polsl.pl.IoTBE.exceptions.ChannelTakenException;
+import polsl.pl.IoTBE.exceptions.InvalidTypeForChannelException;
 import polsl.pl.IoTBE.exceptions.NoChannelForGivenMacException;
 import polsl.pl.IoTBE.exceptions.NoDeviceWithGivenMacException;
 import polsl.pl.IoTBE.mapper.VirtualObjectMapper;
@@ -23,7 +24,7 @@ public class VirtualObjectService {
     VirtualObjectMapper virtualObjectMapper;
 
 
-    public boolean checkPassedMacAndChannelNumber(String mac, long channelNumber){
+    public boolean checkPassedMacAndChannelNumber(String mac, long channelNumber, String desiredType){
         if(!newVirtualObjectValidator.checkPassedMac(mac)){
             throw new NoDeviceWithGivenMacException(mac);
         }
@@ -36,6 +37,11 @@ public class VirtualObjectService {
 
         if(virtualObject != null){
             throw new ChannelTakenException("Channel taken by: ", virtualObjectMapper.virtualObjectToVirtualObjectDto(virtualObject));
+        }
+
+
+        if(!this.storageMenager.getChannelByMacAndChannelNumber(mac,channelNumber).getType().equals(desiredType)){
+            throw new InvalidTypeForChannelException(desiredType);
         }
 
         return true;

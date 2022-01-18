@@ -2,13 +2,10 @@ package polsl.pl.IoTBE.responseComminicates;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
-import java.util.List;
-
-@AllArgsConstructor
 @Data
-public class ResponseMessageAndList<T> {
-
+@AllArgsConstructor
+public class MessageResponse {
     String message;
-    List<T> list;
 }

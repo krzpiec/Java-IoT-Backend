@@ -55,13 +55,14 @@ public class DeviceService {
         if(topicAlreadySubscribed)
             throw new TopicAlreadySubscribedException(device.getMacAdr());
         String deviceConfigTopic = device.getMacAdr() + MqttConfigValues.configSuffix + MqttConfigValues.sendRequestSuffix;
-
+        System.out.println(deviceConfigTopic);
         this.mqttController.publish(deviceConfigTopic, MqttConfigValues.configMessageGet);
 
         JSONObject deviceConfigJson = configHandler.getConfig();
         String jsonValidationResult = newDeviceValidator.validatateJsonConfig(deviceConfigJson);
         if(!jsonValidationResult.equals("OK")){
             this.configHandler.removeConfigTopic(device);
+            System.out.println(jsonValidationResult);
             throw new InvalidConfigException(jsonValidationResult);
         }
 

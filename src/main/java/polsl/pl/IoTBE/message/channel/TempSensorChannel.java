@@ -14,8 +14,6 @@ public class TempSensorChannel extends VirtualChannel<TempSensor>
 {
     @Autowired
     MqttController mqttController;
-    @Autowired
-    TemperatureHistoryRepository temperatureHistoryRepository;
 
     public TempSensorChannel(String type)
     {
@@ -29,6 +27,7 @@ public class TempSensorChannel extends VirtualChannel<TempSensor>
         try{
             double readValue = Double.parseDouble(msg);
             virtualDevice.changeTemperature(readValue);
+            System.out.println(readValue);
         }
         catch (NumberFormatException ex){
            return false;
@@ -37,6 +36,10 @@ public class TempSensorChannel extends VirtualChannel<TempSensor>
 
 
        return true;
+    }
+
+    private void saveReading(double readValue, TempSensor virtualDevice){
+
     }
 
     @Override

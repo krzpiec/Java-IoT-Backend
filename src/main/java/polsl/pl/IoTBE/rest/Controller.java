@@ -39,7 +39,7 @@ public class Controller {
         List<Channel> channelListDevice0 = new ArrayList<>();
 
         //create and save device
-        Device device0 = testCreateDevice("00:0A:E6:3E:FD:E1","Device created for testing",
+        Device device0 = testCreateDevice("00:00:00:00:00:03","Device created for testing",
                 "testDevice", channelListDevice0);
         deviceRepository.save(device0);
 
@@ -104,10 +104,10 @@ public class Controller {
     private Device testCreateDevice(String macAdr, String description, String friendlyName, List<Channel> channelList){
         Device device = new Device();
         device.setMacAdr(macAdr);
-        device.setMacAdr("00:0A:E6:3E:FD:E1");
+        device.setMacAdr(macAdr);
         device.setCreateTime(new Timestamp(System.currentTimeMillis()));
-        device.setDescription("Device created for testing");
-        device.setFriendlyName("testDevice");
+        device.setDescription(description);
+        device.setFriendlyName(friendlyName);
         device.setChannels(channelList);
         return device;
     }

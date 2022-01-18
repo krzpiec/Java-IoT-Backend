@@ -6,17 +6,18 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.configurationprocessor.json.JSONException;
 import org.springframework.boot.configurationprocessor.json.JSONObject;
 import org.springframework.http.ResponseEntity;
+import org.springframework.stereotype.Component;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RestController;
 import polsl.pl.IoTBE.common.MqttConfigValues;
 
-@RestController
+@Component
 public class MqttController {
     @Autowired
     MqttGateway mqtGateway;
 
-    public ResponseEntity<?> publish(String topic, String payload)  {
+    public boolean publish(String topic, String payload)  {
 
         try {
             JSONObject jsonObject = new JSONObject();
@@ -29,10 +30,10 @@ public class MqttController {
 
             mqtGateway.senToMqtt(cleanTextContent(payloadTrimed), cleanTextContent(topicTrimed));
             System.out.println("succes");
-            return ResponseEntity.ok("Success");
+            return true;
         } catch (Exception ex) {
             ex.printStackTrace();
-            return ResponseEntity.ok("fail");
+            return false;
         }
     }
 

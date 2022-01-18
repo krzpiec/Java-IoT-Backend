@@ -35,7 +35,7 @@ public class MqttPublisherConfig {
     @ServiceActivator(inputChannel = "mqttOutboundChannel")
     public MessageHandler mqttOutbound() {
         MqttPahoMessageHandler messageHandler =
-                new MqttPahoMessageHandler("testClientPub", mqttClientFactory());
+                new MqttPahoMessageHandler("backend", mqttClientFactory());
         messageHandler.setAsync(true);
         messageHandler.setDefaultTopic("testTopic");
         return messageHandler;
